@@ -1,0 +1,591 @@
+:root {
+  /* 页面尺寸：后续可以直接修改这些数值。 */
+  --page-max-width: 893px;
+  --page-min-width: 20rem;
+  --page-padding: clamp(1rem, 3vw, 2rem);
+  --section-padding: clamp(1rem, 2.5vw, 1.5rem);
+
+  /* About Me 左栏保持原来的宽度，页面缩窄部分只从右栏扣除。 */
+  --profile-column-width: 333px;
+
+  /* 导航项之间的距离。 */
+  --navigation-gap: 28px;
+
+  /* 全站字体：12pt 是普通正文的基础字号。 */
+  --font-family: Calibri, "Segoe UI", sans-serif;
+  --font-size-base: 12pt;
+  --line-height-base: 1.5;
+
+  /* 全站颜色。 */
+  --color-background: #ffffff;
+  --color-text: #3f3f3f;
+  --color-heading: #242424;
+  --color-secondary-text: #5c5c5c;
+  --color-border: #aaaaaa;
+  --color-link: #78c679;
+  --color-link-hover: #addd8e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: var(--page-min-width);
+  color-scheme: light;
+  background: var(--color-background);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
+body {
+  position: relative;
+  min-width: var(--page-min-width);
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-text);
+  background: var(--color-background);
+  /* 普通文字使用正常字重，仅在需要强调的位置单独加粗。 */
+  font-weight: 400;
+}
+
+/* 页面最顶部的绿色强调横线，占满整个视口宽度。 */
+body::before {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 6px;
+  background: var(--color-link);
+  content: "";
+  pointer-events: none;
+}
+
+.site-container {
+  width: min(
+    calc(100% - var(--page-padding) - var(--page-padding)),
+    var(--page-max-width)
+  );
+  min-height: calc(100vh - var(--page-padding) - var(--page-padding));
+  margin: var(--page-padding) auto;
+  border: 0;
+}
+
+.site-header {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.site-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--navigation-gap);
+  padding: 14px var(--section-padding) 12px;
+  border: 0;
+}
+
+.site-navigation a {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  color: var(--color-secondary-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-navigation .site-navigation-name {
+  color: var(--color-heading);
+  font-size: 20pt;
+  line-height: 1.1;
+}
+
+.site-navigation-page {
+  font-size: 14pt;
+}
+
+.site-navigation a[aria-current="page"] {
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+.site-navigation a.site-navigation-page[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-navigation a:hover,
+.site-navigation a:focus-visible {
+  color: var(--color-heading);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-navigation a.site-navigation-name:hover,
+.site-navigation a.site-navigation-name:focus-visible {
+  text-decoration: none;
+}
+
+.page-content {
+  min-height: 20rem;
+  padding: var(--section-padding);
+}
+
+/* About Me 页面采用约一比二的左右布局。 */
+.page-content--about {
+  display: grid;
+  grid-template-columns: var(--profile-column-width) minmax(0, 1fr);
+  padding: 0;
+}
+
+.profile-panel,
+.biography-panel {
+  padding: var(--section-padding);
+}
+
+.profile-panel {
+  border: 0;
+}
+
+.profile-photo {
+  display: block;
+  /* 个人照片宽度：修改 85% 可以继续调整大小。 */
+  width: 85%;
+  height: auto;
+  margin-inline: 0 auto;
+  border: 0;
+}
+
+.profile-details {
+  margin-top: 12px;
+}
+
+.profile-details dl {
+  margin: 0;
+}
+
+.profile-details dl div + div {
+  margin-top: 8px;
+}
+
+.profile-details dt {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.profile-details dd {
+  margin: 2pt 0 0;
+  color: var(--color-secondary-text);
+  overflow-wrap: anywhere;
+}
+
+/* 学术主页链接：左侧显示图标，右侧显示文字。 */
+.profile-links {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-links img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  filter: none;
+}
+
+.biography-panel p {
+  margin: 0 0 12pt;
+  font-weight: 400;
+}
+
+.page-content .biography-link {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.page-content .biography-link:hover,
+.page-content .biography-link:focus-visible {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* About Me 顶部保持两栏，后续小节跨越整个页面宽度。 */
+.about-full-width-section {
+  grid-column: 1 / -1;
+  padding: var(--section-padding);
+  border: 0;
+}
+
+.about-full-width-section h2 {
+  margin: 0 0 12px;
+  color: var(--color-heading);
+  font-size: 18pt;
+}
+
+.featured-publications-list {
+  display: grid;
+}
+
+.featured-publication-image img {
+  width: 100%;
+  height: auto;
+  border: 0;
+  transition:
+    transform 140ms ease-out,
+    box-shadow 140ms ease-out;
+}
+
+.featured-publication-image:hover img {
+  position: relative;
+  z-index: 1;
+  transform: scale(1.015);
+  box-shadow: 0 5px 14px rgb(0 0 0 / 20%);
+}
+
+/* Latest News 左侧使用固定宽度的日期列。 */
+.news-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.news-item time {
+  color: var(--color-secondary-text);
+  font-weight: 400;
+}
+
+.news-item p {
+  margin: 0;
+  font-weight: 400;
+}
+
+.news-item cite {
+  font-style: italic;
+}
+
+/* Publications 页面按年份排列论文卡片。 */
+.publications-page {
+  display: grid;
+  gap: 40px;
+}
+
+.publication-year h2 {
+  margin: 0 0 12px;
+  color: var(--color-heading);
+  font-size: 18pt;
+}
+
+.publication-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 20px;
+  padding: 16px 0;
+  border: 0;
+}
+
+/* 论文分隔线从卡片内部内容的起点开始。 */
+.publication-card::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 0;
+  border-top: 1px solid var(--color-border);
+  content: "";
+}
+
+.publication-card + .publication-card {
+  margin-top: 16px;
+}
+
+.publication-image-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.publication-image {
+  align-self: center;
+}
+
+.publication-image-button img {
+  width: 100%;
+  height: auto;
+  border: 0;
+  transition:
+    transform 140ms ease-out,
+    box-shadow 140ms ease-out;
+}
+
+.publication-image-button:hover img,
+.publication-image-button:focus-visible img {
+  position: relative;
+  z-index: 1;
+  transform: scale(1.015);
+  box-shadow: 0 5px 14px rgb(0 0 0 / 20%);
+}
+
+/* 所有论文图片共享同一个全屏图库。 */
+.image-lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.image-lightbox::backdrop {
+  background: rgb(30 30 30 / 58%);
+  backdrop-filter: blur(5px);
+}
+
+.image-lightbox:not([open]) {
+  display: none;
+}
+
+.image-lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+
+.image-lightbox-gallery {
+  display: grid;
+  grid-template-columns: 32px minmax(0, auto) 32px;
+  gap: 16px;
+  align-items: center;
+  max-width: 100%;
+}
+
+.image-lightbox-figure {
+  position: relative;
+  max-width: calc(100vw - 144px);
+  margin: 0;
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: -38px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  color: #ffffff;
+  background: transparent;
+  font-size: 24pt;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.image-lightbox-arrow {
+  padding: 0;
+  border: 0;
+  color: #ffffff;
+  background: transparent;
+  font-size: 30pt;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.image-lightbox-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.image-lightbox button:focus-visible {
+  outline-color: #ffffff;
+}
+
+.image-lightbox-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 120px);
+  border: 0;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
+}
+
+.image-lightbox-counter {
+  position: absolute;
+  right: 0;
+  bottom: -30px;
+  color: #ffffff;
+  font-size: 11pt;
+  font-weight: 400;
+}
+
+.publication-details {
+  line-height: 1.35;
+}
+
+.publication-details h3 {
+  margin: 0 0 6px;
+  color: var(--color-heading);
+  font-size: 14pt;
+  line-height: 1.25;
+}
+
+.publication-authors {
+  margin: 0 0 4px;
+  font-weight: 400;
+}
+
+.publication-venue {
+  margin: 0;
+  font-weight: 400;
+}
+
+.publication-authors strong {
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.publication-venue cite {
+  font-style: italic;
+}
+
+.publication-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.page-content .publication-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.publication-links img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: none;
+}
+
+.page-content .publication-links a:hover,
+.page-content .publication-links a:focus-visible {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* 窄屏幕下改为上下排列，避免两栏被过度压缩。 */
+@media (max-width: 640px) {
+  .page-content--about {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-panel {
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .publication-card {
+    grid-template-columns: 1fr;
+  }
+
+  .image-lightbox {
+    padding-inline: 8px;
+  }
+
+  .image-lightbox-gallery {
+    grid-template-columns: 28px minmax(0, auto) 28px;
+    gap: 4px;
+  }
+
+  .image-lightbox-figure {
+    max-width: calc(100vw - 72px);
+  }
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+/* 只有页面正文中的文字链接使用链接颜色。 */
+.page-content a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* 资料链接使用深绿色，图标保持原始颜色。 */
+.page-content .profile-links a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.page-content .contact-link {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.page-content .contact-link:hover,
+.page-content .contact-link:focus-visible,
+.page-content .profile-links a:hover,
+.page-content .profile-links a:focus-visible {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
